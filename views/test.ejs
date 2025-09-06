@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+</head>
+<body>
+    <!-- upload your episodes -->
+    <div class="w-full min-h-screen bg-zinc-900 text-white p-10">
+        <h3 class="text-3xl mb-5">Upload your episodes </h3>
+        <form action="/video/upload" method="post" autocomplete="off" enctype="multipart/form-data">
+            <input type="text" name="movieId" value="<%= showdata._id%>"
+                class="px-3 py-2 rounded-md outline-none bg-transparent cursor-none">
+
+            <input type="text" name="title" placeholder="Episode Title" class="px-3 py-2 rounded-md outline-none bg-transparent border-2 border-zinc-800">
+            <input type="number" name="episodeNumber" placeholder="Episode Number"
+                class="px-3 py-2 rounded-md outline-none bg-transparent border-2 border-zinc-800">
+            <input type="number" name="duration" placeholder="Duration (in minutes)"
+                class="px-3 py-2 rounded-md outline-none bg-transparent border-2 border-zinc-800">
+            <input type="file" name="video" class="px-3 py-2 rounded-md outline-none bg-transparent border-2 border-zinc-800">
+            
+            <input type="submit" value="Upload file" class="px-5 py-3 rounded-md bg-blue-500">
+        </form>
+        <button type="button" class="px-5 py-3 rounded-md bg-green-600 mt-5"><a href="/logout">Exit</a></button>
+    </div>
+</body>
+</html>
