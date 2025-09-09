@@ -22,6 +22,7 @@ app.use(cors({
     credentials:true //dor cookies use only
 }));
 
+// app.set("view engine","ejs");
 
 app.use(express.json());
 app.use(cookieParser());
@@ -35,17 +36,26 @@ app.get("/",(req,res)=>{
     res.send("Node js working..")
 })
 
-app.get('/upload/:id',async (req,res)=>{
-    try {
-        let showdata = await showModel.findById(req.params.id).populate("episodes");
-        if(!showdata) return res.status(404).send("show data not found!")
-    console.log(showdata)
-    res.render("test",{showdata});
-    } catch (error) {
-         console.error(error);
-        res.status(500).send("Error loading upload page");
-    }
-})
+// app.get('/upload/:id',async (req,res)=>{
+//     try {
+//         let showdata = await showModel.findById(req.params.id).populate("episodes");
+//         if(!showdata) return res.status(404).send("show data not found!")
+//     console.log(showdata)
+//     res.render("test",{showdata});
+//     } catch (error) {
+//          console.error(error);
+//         res.status(500).send("Error loading upload page");
+//     }
+// })
+
+// app.get("/show",(req,res)=>{
+//     res.render("showdata")
+// })
+
+// app.get("/logout",(req,res)=>{
+    
+//     res.render('showdata')
+// })
 
 
 // dynamic port

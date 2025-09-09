@@ -1,8 +1,9 @@
-// const { uploadOnCloudinary } = require("../utils/cloudinary");
 const uploadOnBanny = require("../utils/banny");
 const showModel = require("../Models/showdata.models")
 const episodesModel = require("../Models/episodes.models")
-// const path = require("path")
+const path = require("path")
+const convertIntoMp4 = require("../utils/convertIntoMp4");
+
 const uploadFile = async (req, res) => {
     try {
         let { title, episodeNumber, duration, movieId } = req.body;
@@ -11,8 +12,19 @@ const uploadFile = async (req, res) => {
         if (!localFilePath) {
             return res.status(400).json({ message: "No File upload" })
         }
+
+        let finalFilePath = localFilePath.path;
+        let finalFileName = localFilePath.filename;
+
+        // check video format
+        const ext = path.extname(localFilePath.originalname).toLowerCase();
+        if (ext !== ".mp4") {
+            console.log("converting to mp4..");
+            finalFilePath = await convertIntoMp4(localFilePath.path,localFilePath.originalname)
+        }
         // upload to banny
-        const result = await uploadOnBanny("episodes",localFilePath);
+        const result = await uploadOnBanny("episodes",finalFilePath);
+
         if (!result || !result.url) {
             return res.status(500).json({ message: "File upload failed error on upload.controller" });
         }

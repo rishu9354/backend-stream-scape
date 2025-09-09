@@ -1,5 +1,24 @@
 const showData = require("../Models/showdata.models");
 
+const getAllData = async (req,res) =>{
+    try {
+        const shows = await showData.find().populate("episodes");
+        if(!shows || shows.length === 0){
+            return res.status(400).json({message:"No show found!.."});
+
+        }
+         return res.status(200).json({
+            success: true,
+            data: shows
+        });
+    } catch (error) {
+        console.error("Error while fetching all show data:", error);
+        return res.status(500).json({
+            message: "Server error"
+        });
+    }
+}
+
 const getShowData = async (req,res)=>{
     try {
         let {title} = req.params;
@@ -24,5 +43,4 @@ const getShowData = async (req,res)=>{
         });
     }
 }
-
-module.exports = getShowData;
+module.exports = { getShowData ,getAllData };
